@@ -1,0 +1,16 @@
+*filter
+:ufw-user-input - [0:0]
+:ufw-user-output - [0:0]
+:ufw-user-forward - [0:0]
+:ufw-user-limit - [0:0]
+:ufw-user-limit-accept - [0:0]
+### RULES ###
+- A ufw-user-input -p tcp --dport 22 -j ACCEPT
+- A ufw-user-input -p tcp --dport 80 -j ACCEPT
+- A ufw-user-input -p tcp --dport 2266 -j ACCEPT
+- A ufw-user-input -p tcp --dport 4506 -j ACCEPT
+- A ufw-user-input -p tcp --dport 4505 -j ACCEPT
+-A ufw-user-limit -m limit --limit 3/minute -j LOG --log-prefix "[UFW LIMIT BLOCK] "
+-A ufw-user-limit -j REJECT
+-A ufw-user-limit-accept -j ACCEPT
+COMMIT

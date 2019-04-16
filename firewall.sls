@@ -1,22 +1,17 @@
- ufw:
-   pkg.installed
+ufw:
+  pkg.installed
 
- /etc/ufw/user.rules:
+
+/etc/ufw/user.rules:
   file:
     - managed
-    - source: salt://firewall/user.rules
+    - source: salt://salty/user.rules
     - require:
       - pkg: ufw
 
- /etc/ufw/user6.rules:
-  file:
-    - managed
-    - source: salt://firewall/user6.rules
+
+ufw-enable:
+  cmd.run:
+    - name: 'ufw --force enable'
     - require:
       - pkg: ufw
-
- ufw-enable:
-   cmd.run:
-     - name: 'ufw --force enable'
-     - require:
-       - pkg: ufw
